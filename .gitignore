@@ -1,0 +1,6 @@
+Classroom/
+.env
+dump/
+init/
+node_modules/
+package-lock.json

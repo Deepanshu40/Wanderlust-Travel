@@ -1,0 +1,22 @@
+<% layout('layouts/boilerplate') -%>
+<body>
+
+    <div class="row col-8 offset-2">
+        <h2 class="mt-4">Signup</h2>
+        <form action="/signup" method="POST" class="needs-validation" novalidate>
+        <div class="mt-4">
+            <label for="username" class="form-label">Username : </label>
+            <input type="text" name="username" class="form-control" id="username" placeholder="username" required>
+        </div>
+        <div class="mt-3">
+            <label for="email" class="form-label">Email : </label>
+            <input type="email" name="email" class="form-control" id="email" placeholder="xyz@gmail.com" required>
+        </div>
+        <div class="mt-3">
+            <label for="password" class="form-label">Password : </label>
+            <input type="password" name="password" class="form-control" id="password" placeholder="password" required>
+        </div>
+        <button class="btn btn-success mt-4 col-1">Signup</button>
+        </form>        
+    </div>
+</body>
