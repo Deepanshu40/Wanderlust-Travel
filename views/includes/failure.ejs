@@ -1,7 +1,8 @@
 <% if (failure && failure.length) { %>
-    <div class="alert alert-warning alert-dismissible fade show col-8 offset-2 col-md-6 offset-md-3 mt-4" role="alert">
-        <%= failure %>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div class="width40 md-width60 sm-width60 usm-width80 marginautolr mt-1">
+        <label style="height: 4rem;" class="form-input width100 marginautolr align-fc flex just-sb block f-disclaimer f-disclaimer-bg-warning">
+            <span><%= failure %></span>
+        <i class="fa-solid fa-xmark f-size1rem msg-close"></i>
+        </label>
     </div>
-    <% } %>
-      
+<% } %>

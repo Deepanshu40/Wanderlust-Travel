@@ -19,8 +19,8 @@ const listingsRouter = require("./router/listing.js");
 const reviewsRouter = require("./router/reviews.js");
 const userRouter = require('./router/user.js');
 const MongoStore = require('connect-mongo');
-
-
+const wrapAsync = require('./utility/wrapAsync.js');
+const listingController = require('./controller/listings.js');
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -75,9 +75,10 @@ app.use("/listings", listingsRouter);
 app.use("/listings/:id/review", reviewsRouter);
 app.use("/", userRouter);
 
+app.get('/', (wrapAsync(listingController.Index)))
 // starting the server
 app.listen(port, ()=> {
-    console.log("server is listening to you")
+    console.log(`server is listening to you on port ${8000} practice`);
 });
 
 // let {MONGO_USERNAME, MONGO_PASSWORD} = process.env;

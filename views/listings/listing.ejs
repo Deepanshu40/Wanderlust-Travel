@@ -4,38 +4,41 @@
     let listing = <%- JSON.stringify(listing) %>;
 
 </script>
-<body>
-    <div class="row mt-4">
-        <div class="col-10 offset-1  col-md-8 offset-md-2">
-            <h2><%= listing.title %></h2>
-        </div>
-        <div class="card col-10 offset-1 col-md-8 offset-md-2 show-card">
-            <img src="<%= listing.image.url %>" class="card-img-top listing-image" alt="listing-image">
-            <div class="card-body mt-2">
-                <div class="card-text card-text-listing">
-                    <p><i>owned by <%= listing.owner.username %></i></p>
-                    <p><%= listing.description %></p>
-                    <p>&#8377; <%= listing.price.toLocaleString("EN-IN") %> per night</p>
-                    <p><%= listing.location %><br></p>
-                    <p><%= listing.country %></p><br>    
-                </div>
-            </div>    
-        </div>
-    </div>
-<% if (currUser && currUser._id.equals(listing.owner._id)) {%>
-    <div class="btns col-10 col-md-8 offset-1 offset-md-2">
-        <a href="/listings/edit/<%= listing._id%>" class="btn btn-dark btn-edit col-1">Edit</a>
-        <form action="/listings/<%= listing._id %>/?_method=delete" method="post">
-            <button class="btn btn-dark btn-delete offset-5">Delete</button>
-        </form>
-    </div>
-<% } %>
 
+<body>
+
+<!-- listing view -->
+    <div class="width60 sm-width80 usm-width80 marginautolr">
+        <div class="flex flex-col mt-2">
+            <h1 class="usm-fs6 sm-fs6"><%= listing.title %></h1>
+            <img src="<%= listing.image.url %>" class="img width100 height40 usm-height30" alt="listing-image">
+            <i>owned by <%= listing.owner.username %></i>
+            <div class="flex flex-col mt-1  poppins-regular">
+                <p class="mt-dot5"><%= listing.description %></p>
+                <p class="mt-dot5">&#8377; <%= listing.price.toLocaleString("EN-IN") %> per night</p>
+                <p class="mt-dot5"><%= listing.location %><br></p>
+                <p class="mt-dot5"><%= listing.country %></p><br>        
+            </div>
+        </div>
+ 
+<!-- listing modify button -->
+
+<% if (currUser && currUser._id.equals(listing.owner._id)) {%>
+        <div class="flex ">
+        <a href="/listings/edit/<%= listing._id%>" class="btn btn-red col-w text-decor-none">Edit</a>
+        <form action="/listings/<%= listing._id %>/?_method=delete" method="post">
+            <button class="btn btn-red col-w ml-2">Delete</button>
+        </form>
+        </div>
+<% } %>
+    </div>
+
+<!-- posting reveiw section -->
 <% if (currUser) { %>
-<div class="review mt-4 col-10 col-md-8 offset-1 offset-md-2">
-        <hr>
-        <h3>Leave a Review</h3> 
-        <form action="/listings/<%= listing._id%>/review" method="Post" novalidate class="needs-validation">
+    <div class="width60 sm-width80 usm-width80 marginautolr">
+        <hr><br>
+        <h2>Leave a Review</h2> 
+        <form action="/listings/<%= listing._id%>/review" method="POST">
         <label for="ratings">Ratings</label>
             <fieldset class="starability-slot">
             <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
@@ -51,45 +54,39 @@
             <label for="first-rate5" title="Amazing">5 stars</label>
           </fieldset>
 
-        <label for="comments form-label" class="mt-3">Please provide your comments</label><br>
-        <textarea name="review[comment]" id="comments" class="form-control" cols="30" rows="5" required></textarea>
-        <div class="invalid-feedback">
-            Please provide your comments before posting review
-        </div><br>
-        <button class="btn btn-light">Post Review</button>
+        <label for="comments form-label">Please provide your comments</label><br>
+        <textarea name="review[comment]" id="comments" class="form-textarea width100" placeholder="please enter your comments" required></textarea>
+        <br><button class="btn" type="submit">Post Review</button>
         </form>
     </div>
 <% } %>
 
+
+<!-- showing all review section -->
 <% if (listing.reviews.length) { %>
-<div class="row">
-    <div class="review col-10 col-md-8 offset-1 offset-md-2 mt-4">
-        <hr>
-        <h2>All Reviews</h2>    
-        <% for (review of listing.reviews) { %>
-            <div class="review-card border col-5 mt-4 mb-4 ms-4">
-                <div class="card-body ms-2 mb-2 mt-2">
-                    <h5 class="card-title">@<u><%= review.author.username %></h5></u>
-                    <!-- show ratings -->
-                    <p class="card-text">
-                        <!-- <p><u>@<%= review.author.username %></u></p> -->
-                        <p class="starability-result" data-rating="<%= review.rating %>">
-                        </p></p>
-                    <p class="card-text mt-2 ms-2"><%= review.comment %></p>
-                    <form action="/listings/<%= listing._id %>/review/<%= review._id %>/?_method=Delete" method="POST">
-                    <button class="btn btn-dark ms-2 mb-2">Delete Review</button>
-                    </form>
+    <div class="width60 sm-width80 usm-width80 marginautolr">
+    <hr><br>
+        <h2>All Reviews</h2>
+        <div class="flex flex-wrap">          
+            <% for (review of listing.reviews)  {%>
+                <div class="flex flex-col width40 sm-width80 usm-width100 just-fs mt-1 mr-2 border">
+                    <p><u>@</u><%= review.author.username %></p>
+                    <p class="starability-result mt-1" data-rating="<%= review.rating %>">
+                    <p class="mt-1"><%= review.comment %></p>
                 </div>
-            </div>
-        <% } %>    
+            <% } %>
+        </div>
     </div>
-</div>
 <% } %>
 
-    <div class="mt-4 col-10 col-md-8 offset-1 offset-md-2">
-        <h3>Where you'll be</h3>
-        <div id="map"></div>
-    </div>
 
+<!-- map section -->
+<div class="width60 sm-width80 usm-width80 marginautolr mt-2">
+    <hr>
+    <div class="view-map mt-2">
+        <h3>Where you'll be</h3>
+        <div id="map" class="width100 usm-height30 height40 border mt-1 mb-2"></div>
+    </div>
+</div>
 <script src = "/map.js"></script>
 </body>

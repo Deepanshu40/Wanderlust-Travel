@@ -32,8 +32,8 @@ const listingSchema = new mongoose.Schema({
     ],
     category: {
         type: String,
-        // enum: ['Pools', 'Hotels', 'Mountains', 'Houseboat', 'Beach', 'Golf', 'Domes', 'Restaurant', 'Playstation', 'Skiing'],
-        // required: true,
+        enum: ['Pools', 'Hotels', 'Mountains', 'Houseboats', 'Beach', 'Golf', 'Domes', 'Restaurant', 'Playstation', 'Skiing'],
+        required: true,
     },
     owner: {
         type: Schema.Types.ObjectId, 

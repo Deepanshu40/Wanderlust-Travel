@@ -1,22 +1,15 @@
 <% layout('layouts/boilerplate') -%>
 <body>
-
-    <div class="row col-8 offset-2">
-        <h2 class="mt-4">Signup</h2>
-        <form action="/signup" method="POST" class="needs-validation" novalidate>
-        <div class="mt-4">
+    <div class="width60 md-width60 sm-width80 usm-width80 marginautolr mt-3">
+        <h1>Signup</h1>
+        <form action="/signup" method="POST" class="flex flex-col">
             <label for="username" class="form-label">Username : </label>
-            <input type="text" name="username" class="form-control" id="username" placeholder="username" required>
-        </div>
-        <div class="mt-3">
+            <input type="text" id="username" class="form-input" placeholder="username", name="username" required>    
             <label for="email" class="form-label">Email : </label>
-            <input type="email" name="email" class="form-control" id="email" placeholder="xyz@gmail.com" required>
-        </div>
-        <div class="mt-3">
+            <input type="email" id="email" class="form-input" placeholder="xyz@gmail.com", name="email" required>    
             <label for="password" class="form-label">Password : </label>
-            <input type="password" name="password" class="form-control" id="password" placeholder="password" required>
-        </div>
-        <button class="btn btn-success mt-4 col-1">Signup</button>
-        </form>        
+            <input type="password" id="password" class="form-input" placeholder="password", name="password" required>
+            <span><button type="submit" class="btn btn-red col-w">Signup</button></span>    
+        </form>
     </div>
 </body>
