@@ -15,7 +15,6 @@ module.exports.renderNewForm = (req,res) => {
 };
 
 module.exports.createNewListing = async (req,res, next) => {
-    console.log(req.body);
     let {path: url, filename} = req.file;
     let addListing = req.body.listing;
     let location = addListing.location;
@@ -55,7 +54,6 @@ module.exports.renderingEditListing = async (req,res,next) => {
     };
     let imageUrl = listing.image.url;
         imageUrl = imageUrl.replace("/upload", "/upload/h_300,w_300");
-        console.log(imageUrl);
         res.render(`listings/edit.ejs`, {listing, imageUrl});
 };
 
@@ -63,9 +61,11 @@ module.exports.editListing = async (req, res, next) => {
     let {id} = req.params;
     let updatedListing = req.body.listing;
     if (req.file) {
+        console.log('entered here');
     let {path: url, filename} = req.file;
         updatedListing.image = {url, filename}
     };
+    console.log(updatedListing);
     await Listing.findByIdAndUpdate(id, {$set: updatedListing}, {runValidators:true});
     req.flash("failure", "Listing has been updated successfully");
     res.redirect(`/listings/${id}`);

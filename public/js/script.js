@@ -56,16 +56,22 @@ if (element) {
 })
 };
 
-
+console.log(originalUrl);
 
 // form validations
 
 let requiredInput = document.querySelectorAll('form input[required]');
 let requiredTextarea = document.querySelectorAll('form textarea[required]');
+let selectList = document.querySelectorAll('form select[required');
 let submitButtons = document.querySelectorAll('button[type="submit"]');
 let result = [];
 requiredArr = [...requiredInput, ...requiredTextarea];
 
+
+if (defaultCategory) {
+let markSelected = Array.from(selectList[0].options).filter((option) => option.innerText === defaultCategory);
+markSelected[0].defaultSelected = true;
+};
 
 
 if (submitButtons) {
@@ -73,17 +79,34 @@ submitButtons.forEach((btn) => {
   btn.addEventListener('click', (event) => {
   event.preventDefault();  // Prevent default action of form submission
   
-
   if (requiredArr) {
       result = requiredArr.map((element) => {
-      return checkInput(element);
+        // console.dir(element);    
+        let {minLength, maxlength, min, max, value} = element;      
+        let arr = [minLength, maxlength, min, max, value];
+        arr = arr.map((el) => parseInt(el));
+        minLength = arr[0];
+        maxLength = arr[1];
+        min = arr[2];
+        max = arr[3];
+        value = arr[4];
+        
+        // let markSelected = Array.from(selectList[0].options).filter((option) => option.defaultCategory === true);
+        // if (markSelected.length === 0) {
+        //     populateMessage(element, 'Please select the category from the below list');          
+        // } else {
+          
+        // } 
+        
+
+        return checkInput (element, minLength, maxLength, min, max, value)      
+
     })}
  
   if (result) {
       result = result.filter((el) => {
       return el === 'Error';
-    })}
-
+    })}  
 
   if (!result.length) {
     event.target.closest('form').submit();
@@ -93,44 +116,69 @@ submitButtons.forEach((btn) => {
 }
 
 
+// function to populate a message for form validation
+function populateMessage(element, message)  {
+  let newMessage = document.createElement('p');
+  newMessage.innerText = message;
+  newMessage.style.color = 'red';
+  newMessage.style.fontSize = '0.8rem'
+  newMessage.classList.add(`${element.id}-message`); // Add a class to identify the message
+  element.insertAdjacentElement('afterend', newMessage);
+};
+
 //checking Input length
 
-function checkInput(element, len = 0, field = 'null') {
+function checkInput(element, minLength, maxLength, min, max, value) {
   let existingMessage = document.querySelector(`.${element.id}-message`);
 
         if (!existingMessage) {
         if (!element.value) {
-        let message = document.createElement('p');
-        message.innerText = `Please enter a valid value`;
-        message.style.color = 'red';
-        message.style.fontSize = '0.8rem'
-        message.classList.add(`${element.id}-message`); // Add a class to identify the message
-        element.insertAdjacentElement('afterend', message);
+  
+        let message = `Please enter a valid value`;
+        populateMessage(element, message); 
         return 'Error';
-      } else if (element.value.length < length) {
-        let message = document.createElement('p');
-        message.innerText = `Please enter ${field} of atleast ${len} characters`;
-        message.style.color = 'red';
-        message.style.fontSize = '0.8rem'
-        message.classList.add(`${element.placeholder}-message`); // Add a class to identify the message
-        element.insertAdjacentElement('afterend', message);
+      } else if (value < minLength) {
+        let message = `The length of input should not be lower than ${minLength} characters`
+        populateMessage(element, message); 
         return 'Error';
-      } else {
+      } else if (value > maxLength) {
+        let message = `The length of input should be more than ${maxLength} characters`
+        populateMessage(element, message); 
+        return 'Error';
+      } else if (value < min) {
+        let message = `The value of input should not be less than ${min}`
+        populateMessage(element, message); 
+        return 'Error';
+      } else if (value > max) {
+        let message = `The value of input should not be more than ${max}`
+        populateMessage(element, message); 
+        return 'Error';
+      }
+      else {
         return '';
       }
     } else if (existingMessage) {
       if (!element.value) {
         existingMessage.innerText = `Please enter a valid value`;
         return 'Error';
-      } else if (element.value.length < length) {
-        existingMessage.innerText = `Please enter ${field} of atleast ${len} characters`;
+      } else if (value < minLength) {
+        existingMessage.innerText = `The length of input should not be lower than ${minLength} characters`;
+        return 'Error';
+      } else if (value > maxLength) {
+        existingMessage.innerText = `The length of input should be more than ${maxLength} characters`
+        return 'Error';
+      } else if (value < min) {
+        existingMessage.innerText = `The value of input should not be less than ${min}`
+        return 'Error';
+      } else if (value > max) {
+        existingMessage.innerText = `The value of input should not be more than ${max}`
         return 'Error';
       } else {
         existingMessage.innerText = '';
         return '';
       }
     }
-}
+};
 
 
 

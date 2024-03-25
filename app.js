@@ -68,6 +68,8 @@ app.use((req, res, next) => {
 res.locals.success = req.flash("success");
 res.locals.failure = req.flash("failure");
 res.locals.currUser = req.user;
+res.locals.originalUrl = req.originalUrl;
+console.log(res.locals.originalUrl);
 next();
 });
 

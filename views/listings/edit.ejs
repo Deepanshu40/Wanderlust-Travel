@@ -1,18 +1,21 @@
 <% layout('layouts/boilerplate') -%>
+<script>
+  let defaultCategory = "<%=listing.category%>";
+  let originalUrl = '<%= originalUrl %>';
+</script>
 <body>
-
   <div class="flex width60 md-width60 sm-width80 usm-width80 marginautolr flex flex-col">
-    <form action="/listings/<%= listing._id %>?_method=PATCH" class="mt-1 flex flex-col width100">
+    <form action="/listings/<%= listing._id %>?_method=PATCH" method="POST" enctype="multipart/form-data" class="mt-1 flex flex-col width100">
       <h1>Edit Listing</h1>
       <label for="title" class="form-label">Title : </label>
-      <input type="text" name="listing[title]" class="form-input" id="title" value="<%= listing.title %>" required>
+      <input type="text" name="listing[title]" class="form-input" id="title" minlength="20" maxlength="40" value='<%= listing.title %>' required>
 
       <label for="description" class="form-label">Description : </label>
-      <textarea name="listing[description]" id="description" class="form-textarea" cols="30" rows="2" required><%= listing.description %></textarea>
+      <textarea name="listing[description]" id="description"  minlength="50" maxlength="100" class="form-textarea" cols="30" rows="2" required><%= listing.description %></textarea>
 
       <label for="listingCategory" class="form-label">Choose Category</label>
-      <select class="form-select" id="listingCategory" aria-label="Default select example" name="listing[category]" required>
-        <option disabled>Please Choose Category</option>
+      <select class="form-select" id="listingCategory" name="listing[category]" required>
+        <option>Please Choose Category</option>
         <option value="Pools">Pools</option>
         <option value="Hotels">Hotels</option>
         <option value="Mountains">Mountains</option>
@@ -30,11 +33,11 @@
       
       <label for="image" class="form-label">Upload New Image : </label>
       <input type="file" name="listing[image]" id="image" class="form-input">
-
+      
         <div class="flex mt-1 flex-wrap">
           <div class="flex-item1 flex flex-col width40 sm-width100 usm-width100">
             <label for="price" class="form-label">Price : (&#8377;)</label>
-            <input type="text" name="listing[price]" id="price" class="form-input" value="<%= listing.price %>" required>
+            <input type="text" name="listing[price]" id="price" min="999" class="form-input" value="<%= listing.price %>" required>
             </div>
           <div class="flex-item2 flex flex-col width40 ml-2 sm-ml-zero usm-ml-zero sm-width100 usm-width100">
             <label for="country" class="form-label">Country : </label>

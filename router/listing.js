@@ -13,7 +13,6 @@ const {storage} = require("../cloudConfig.js");
 const upload = multer({storage});
 
 
-
 // render all listings and create listing route
 router
 .route("/")
