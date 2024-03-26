@@ -884,6 +884,10 @@ footer {
         padding: 0;
 }
 
+    .height-disclaimer {
+        height: 3;
+}
+
 /* media screen size medium md */
 @media (max-width:1000px) and (min-width:700px) {
 
@@ -959,6 +963,10 @@ footer {
         font-size: 1.6rem;  
     }
 
+
+    .height-disclaimer {
+        height: 3rem;
+}
 
 
 }
@@ -1044,6 +1052,13 @@ footer {
     .sm-ml-dot5{
         margin-left: 0.5rem;
     } 
+
+    
+
+    .height-disclaimer {
+        height: 4rem;
+    }
+
 }
 
 /* media screen size medium usm */
@@ -1126,6 +1141,13 @@ footer {
     .usm-ml-dot5{
         margin-left: 0.5rem;
     }
+
+    
+
+    .height-disclaimer {
+        height: 4.5rem;
+    }
+
 }
 
 .show-overlay-effect {
