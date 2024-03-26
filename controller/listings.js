@@ -61,11 +61,9 @@ module.exports.editListing = async (req, res, next) => {
     let {id} = req.params;
     let updatedListing = req.body.listing;
     if (req.file) {
-        console.log('entered here');
     let {path: url, filename} = req.file;
         updatedListing.image = {url, filename}
     };
-    console.log(updatedListing);
     await Listing.findByIdAndUpdate(id, {$set: updatedListing}, {runValidators:true});
     req.flash("failure", "Listing has been updated successfully");
     res.redirect(`/listings/${id}`);
