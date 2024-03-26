@@ -56,7 +56,6 @@ if (element) {
 })
 };
 
-console.log(originalUrl);
 
 // form validations
 
@@ -67,11 +66,18 @@ let submitButtons = document.querySelectorAll('button[type="submit"]');
 let result = [];
 requiredArr = [...requiredInput, ...requiredTextarea];
 
-
+if (originalUrl.indexOf('/listings/edit') >= 0) {
 if (defaultCategory) {
 let markSelected = Array.from(selectList[0].options).filter((option) => option.innerText === defaultCategory);
 markSelected[0].defaultSelected = true;
 };
+}
+
+
+// if (defaultCategory) {
+// let markSelected = Array.from(selectList[0].options).filter((option) => option.innerText === defaultCategory);
+// markSelected[0].defaultSelected = true;
+// };
 
 
 if (submitButtons) {
@@ -81,7 +87,6 @@ submitButtons.forEach((btn) => {
   
   if (requiredArr) {
       result = requiredArr.map((element) => {
-        // console.dir(element);    
         let {minLength, maxlength, min, max, value} = element;      
         let arr = [minLength, maxlength, min, max, value];
         arr = arr.map((el) => parseInt(el));
