@@ -84,8 +84,8 @@ app.listen(port, ()=> {
 });
 
 // let {MONGO_USERNAME, MONGO_PASSWORD} = process.env;
-// let Mongo_Url = process.env.MONGODB_URI
-let Mongo_Url = `mongodb://127.0.0.1:27017/wanderlust`
+let Mongo_Url = process.env.MONGODB_URI
+// let Mongo_Url = `mongodb://127.0.0.1:27017/wanderlust`
 
 // connecting to database
 mongoose.connect(Mongo_Url)
