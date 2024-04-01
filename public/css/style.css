@@ -298,11 +298,15 @@ text-decoration: underline;
     align-items: center;
     min-width: 40rem;
     max-width: 40rem;
-    overflow: hidden;
+    overflow: scroll;
     position: relative;
     margin-top: 1rem;
 }
 
+
+.category-list-category-container::-webkit-scrollbar {
+    display: none;
+}
 
 .category-list .fa-arrow-left, .fa-arrow-right {
 border: 1px solid black;
@@ -406,7 +410,11 @@ display: none;
         flex-direction: column;
         height: 20rem;
         margin-top: 1rem;
-        overflow: hidden;
+        overflow: scroll;
+    }
+
+    .category-list-category-container::-webkit-scrollbar {
+        display: none;
     }
 
     .listing-category-item {

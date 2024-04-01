@@ -132,7 +132,6 @@ function populateMessage(element, message)  {
 };
 
 //checking Input length
-
 function checkInput(element, minLength, maxLength, min, max, value) {
   let existingMessage = document.querySelector(`.${element.id}-message`);
 
