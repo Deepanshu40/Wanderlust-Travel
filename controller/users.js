@@ -24,7 +24,7 @@ module.exports.RedirectPostSignup = async(req, res) => {
         }
 };
 
-module.exports.renderLoginForm = (req, res) => {
+module.exports.renderLoginForm = async (req, res) => {
     res.render("users/login.ejs");
 };
 

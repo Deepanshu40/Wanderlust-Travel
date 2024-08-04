@@ -73,7 +73,6 @@ module.exports.validateListing = function (req, res, next) {
 
 module.exports.validateReview = function (req, res, next) {
     let result = reviewSchema.validate(req.body);
-console.log(req.body);
     if (result.error) {
         throw new ExpressError(404, result.error);
     } else {

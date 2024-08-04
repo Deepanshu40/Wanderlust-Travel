@@ -18,8 +18,10 @@ router
 router
 .route("/login")
 .get(userController.renderLoginForm)
-.post(saveRedirectUrl, passport.authenticate("local",
-{failureRedirect: "/login", failureFlash: true}), userController.login);
+.post(saveRedirectUrl, passport.authenticate("local", {
+    failureRedirect: "/login",
+    failureFlash: { type: 'failure', message: 'Invalid username or password.' }
+}), userController.login);
 
 // logout
 router.get("/logout", isLoggedIn, userController.logout);

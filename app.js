@@ -80,7 +80,7 @@ app.use("/", userRouter);
 app.get('/', (wrapAsync(listingController.Index)))
 // starting the server
 app.listen(port, ()=> {
-    console.log(`server is listening to you`);
+    console.log(`server is listening to you at ${port}`);
 });
 
 // let {MONGO_USERNAME, MONGO_PASSWORD} = process.env;
